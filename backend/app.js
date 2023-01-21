@@ -1,8 +1,5 @@
 //mongodb+srv://admin:<password>@cluster0.jkiau4d.mongodb.net/?retryWrites=true&w=majority
 //admin
-//hqkNj9QVl0YkdjaH opps I put the password on github
-//aq7q1fqbSb6TsMFi
-
 //Porject 6
 const express = require('express');
 const bodyParser = require('body-parser');

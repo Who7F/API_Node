@@ -14,7 +14,7 @@ exports.signup = (req, res, next) => {
 				message : 'User saved'
 			});
 		}).catch((error) => {
-			res.statue(500).json({
+			res.status(500).json({
 				error: error
 			});
 		});
@@ -42,7 +42,6 @@ exports.login = (req, res, next) => {
 			});
 			
 		}).catch((error) => {
-			console.log('data')
 			res.status(500).json({
 				error: error
 			})

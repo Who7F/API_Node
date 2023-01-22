@@ -73,7 +73,18 @@ exports.modifySauce = (req, res, next) => {
 			imageUrl: url + '/images/' + req.file.filename,
 			heat: newSauce.heat,
 		});
-		fs.unlink ('images/' + newSauce.imageUrl);
+		/**
+		Error was in the below
+		unlink returns a promise so unlinkSync is used
+		**/
+		//fs.unlink ('images/' + newSauce.imageUrl);
+		Sauce.findOne({_id: req.params.id}).then((oldSauce) => {
+			const filename = oldSauce.imageUrl.split('/images/')[1];
+			//fs.unlink('images/' + filename, () => {
+			//	console.log('images/' + filename);
+			//});
+			fs.unlinkSync('images/' + filename);
+		});
 	} else{
 		const newSauce = req.body;
 		sauce = ({
@@ -135,10 +146,8 @@ exports.deleteSauce = (req, res, next) =>{
 //https://www.mongodb.com/docs/manual/reference/operator/update/pull/
 exports.likeSauce = (req, res, next) => {
 	Sauce.findOne({_id: req.params.id}).then((sauce) => {
-		console.log(sauce);
 		if (req.body.like === 1){
 			sauce.usersLiked.push(req.body.userId);
-			console.log(sauce);
 			likeSauce = ({
 				likes: ++sauce.likes,
 				usersLiked: sauce.usersLiked,
@@ -164,7 +173,6 @@ exports.likeSauce = (req, res, next) => {
 				message: 'opps'
 			});
 		}
-		console.log(likeSauce);
 		Sauce.updateOne({_id: req.params.id}, likeSauce).then(()=> {
 		
 			res.status(201).json({

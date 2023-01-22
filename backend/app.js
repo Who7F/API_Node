@@ -1,5 +1,5 @@
-//mongodb+srv://admin:<password>@cluster0.jkiau4d.mongodb.net/?retryWrites=true&w=majority
-//admin
+
+
 //Porject 6
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -35,7 +35,6 @@ app.use(bodyParser.json());
 
 //Sign up, loging in, and load sauces all need to return somthing else you get a CORS error 
 app.use('/images', express.static(path.join(__dirname, 'images')))
-//email: "user@email.com", password: "passward"
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', saucesRoutes);	
 
